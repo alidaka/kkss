@@ -46,4 +46,4 @@ src_dir: 'app'
 #
 # spec_dir: spec/javascripts
 #
-spec_dir: 'spec/javascripts'
+spec_dir: 'spec/client'
