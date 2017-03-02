@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    ffi (1.9.17)
     haml (4.0.7)
       tilt
     jasmine (2.5.2)
@@ -9,11 +10,21 @@ GEM
       rack (>= 1.2.1)
       rake
     jasmine-core (2.5.2)
+    listen (3.1.5)
+      rb-fsevent (~> 0.9, >= 0.9.4)
+      rb-inotify (~> 0.9, >= 0.9.7)
+      ruby_dep (~> 1.2)
     phantomjs (2.1.1.0)
     rack (1.6.5)
     rack-protection (1.5.3)
       rack
     rake (12.0.0)
+    rb-fsevent (0.9.8)
+    rb-inotify (0.9.8)
+      ffi (>= 0.5.0)
+    rerun (0.11.0)
+      listen (~> 3.0)
+    ruby_dep (1.5.0)
     sinatra (1.4.8)
       rack (~> 1.5)
       rack-protection (~> 1.4)
@@ -27,10 +38,11 @@ DEPENDENCIES
   haml
   jasmine
   rake
+  rerun
   sinatra
 
 RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.13.7
+   1.14.5

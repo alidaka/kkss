@@ -5,3 +5,7 @@ gem 'sinatra'
 gem 'jasmine'
 gem 'haml'
 gem 'rake'
+
+group :development do
+  gem 'rerun'
+end
