@@ -54,7 +54,27 @@ describe("Client", function() {
 
   describe("Generator", function() {
     beforeEach(function() {
-      this.subject = new KKSS.generator();
+      var mockRandom = {
+        nextByte: function() {
+          return 4
+        }
+      };
+
+      this.subject = new KKSS.generator(mockRandom);
+    });
+
+    describe("polynomial", function() {
+      it("generates a representative polynomial of expected degree", function() {
+        var degree = 5;
+        var poly = this.subject.polynomial(123, degree);
+        expect(poly.length).toBe(degree);
+      });
+
+      it("uses the secret as the constant coefficient", function() {
+        var secret = 123;
+        var poly = this.subject.polynomial(secret, 5);
+        expect(poly[0]).toBe(secret);
+      });
     });
 
     describe("decompose", function() {
@@ -67,7 +87,13 @@ describe("Client", function() {
       it("creates the correct number of parts", function() {
         var parts = this.subject.decompose(this.secret, this.k, this.n);
         expect(parts.length).toBe(this.n);
-        expect(typeof parts[0]).toBe("string");
+        for (var i = 0; i < this.n; i++) {
+          expect(typeof parts[i]).toBe("string");
+        }
+      });
+
+      it("creates the correct number of parts", function() {
+        var parts = this.subject.decompose(this.secret, this.k, this.n);
       });
     });
   });

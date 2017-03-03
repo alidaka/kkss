@@ -8,7 +8,7 @@ KKSS.order = 251;
 
 function boot() {
   console.log("booo!");
-}
+};
 
 KKSS.add = function(a, b) {
   return (a+b) % KKSS.order;
@@ -18,7 +18,18 @@ KKSS.multiply = function(a, b) {
   return (a*b) % KKSS.order;
 };
 
-KKSS.generator = function() {
+KKSS.generator = function(random) {
+  this.random = random;
+};
+
+KKSS.generator.prototype.polynomial = function(secret, degree) {
+  var poly = new Array(degree);
+  poly[0] = secret;
+  for (var i = 1; i < degree; i++) {
+    poly[i] = this.random.nextByte(1);
+  }
+
+  return poly;
 };
 
 KKSS.generator.prototype.decompose = function(secret) {
