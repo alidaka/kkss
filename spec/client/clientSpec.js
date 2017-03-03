@@ -57,7 +57,18 @@ describe("Client", function() {
       this.subject = new KKSS.generator();
     });
 
-    it("", function() {
+    describe("decompose", function() {
+      beforeEach(function() {
+        this.secret = "abcdefgh";
+        this.n = 3;
+        this.k = 2;
+      });
+
+      it("creates the correct number of parts", function() {
+        var parts = this.subject.decompose(this.secret, this.k, this.n);
+        expect(parts.length).toBe(this.n);
+        expect(typeof parts[0]).toBe("string");
+      });
     });
   });
 });

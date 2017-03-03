@@ -20,3 +20,7 @@ KKSS.multiply = function(a, b) {
 
 KKSS.generator = function() {
 };
+
+KKSS.generator.prototype.decompose = function(secret) {
+  return ["test", "test", "test"];
+};
