@@ -77,6 +77,11 @@ describe("Client", function() {
       });
     });
 
+    it("evaluates polynomials", function() {
+      var poly = [1, 2, 3];
+      expect(this.subject.evaluate(poly, 2)).toBe(17);
+    });
+
     describe("decompose", function() {
       beforeEach(function() {
         this.secret = "abcdefgh";
