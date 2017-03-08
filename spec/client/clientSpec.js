@@ -100,6 +100,13 @@ describe("Client", function() {
         var parts = this.subject.decompose('aaa', this.k, this.n);
         expect(parts).toEqual([[1, "237237237"], [2, "126126126"], [3, "015015015"]]);
       });
+
+      it("uses new polynomials for each byte", function() {
+        this.mockRandom.nextByte.and.returnValues(140, 6, 123, 209);
+
+        var parts = this.subject.decompose('abba', this.k, this.n);
+        expect(parts).toEqual([[1, "237104221055"], [2, "126110093013"], [3, "015116216222"]]);
+      });
     });
   });
 });
