@@ -30,7 +30,7 @@ describe("Client", function() {
         }
 
         for (var i = 0; i < order; i++) {
-          expect(generatedElements[i]).toBe(true, i + " not generated");
+          expect(generatedElements[i]).toEqualWithMessage(true, i + " not generated");
         }
       });
     });

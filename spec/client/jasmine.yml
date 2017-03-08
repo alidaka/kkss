@@ -47,3 +47,8 @@ src_dir: 'app'
 # spec_dir: spec/javascripts
 #
 spec_dir: 'spec/client'
+
+helpers:
+  - 'specHelper.js'
+
+random: true
