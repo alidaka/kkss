@@ -82,6 +82,11 @@ describe("Client", function() {
       expect(this.subject.evaluate(poly, 2)).toBe(17);
     });
 
+    it("operates within the field", function() {
+      var poly = [1, 2];
+      expect(this.subject.evaluate(poly, 250)).toBe(250);
+    });
+
     describe("decompose", function() {
       beforeEach(function() {
         this.secret = "abcdefgh";

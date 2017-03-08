@@ -35,7 +35,8 @@ KKSS.generator.prototype.polynomial = function(secret, degree) {
 KKSS.generator.prototype.evaluate = function(poly, x) {
   var y = poly[0];
   for (var i = 1; i < poly.length; i++) {
-    y += poly[i] * Math.pow(x, i);
+    var term = KKSS.multiply(poly[i], Math.pow(x, i));
+    y = KKSS.add(y, term);
   }
 
   return y;
