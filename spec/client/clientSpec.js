@@ -50,6 +50,23 @@ describe("Client", function() {
         }
       });
     });
+
+    describe("inverse", function() {
+      it("calculates a multiplicative inverse", function() {
+        expect(KKSS.inverse(126)).toBe(2);
+      });
+
+      it("handles the multiplicative identity, 1", function() {
+        expect(KKSS.inverse(1)).toEqual(1);
+      });
+
+      it("has inverses that multiply by to 1", function() {
+        expect(KKSS.multiply(2, KKSS.inverse(2))).toEqual(1);
+        expect(KKSS.multiply(3, KKSS.inverse(3))).toEqual(1);
+        expect(KKSS.multiply(126, KKSS.inverse(126))).toEqual(1);
+        expect(KKSS.multiply(250, KKSS.inverse(250))).toEqual(1);
+      });
+    });
   });
 
   describe("Generator", function() {

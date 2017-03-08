@@ -19,6 +19,26 @@
     return (a*b) % KKSS.order;
   };
 
+  // https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm
+  KKSS.inverse = function(x) {
+    if (x === 1) { return 1; }
+
+    var ts = [0, 1],
+        rs = [KKSS.order, x];
+
+    while(rs[1] !== 0) {
+      var q = Math.floor(rs[0] / rs[1]);
+      ts = [ts[1], ts[0] - KKSS.multiply(q, ts[1])];
+      rs = [rs[1], rs[0] - KKSS.multiply(q, rs[1])];
+    }
+
+    if (ts[0] < 0) {
+      ts[0] = ts[0] + KKSS.order;
+    }
+
+    return ts[0];
+  };
+
   KKSS.generator = function(random) {
     this.random = random;
   };
