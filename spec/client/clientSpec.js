@@ -54,13 +54,11 @@ describe("Client", function() {
 
   describe("Generator", function() {
     beforeEach(function() {
-      var mockRandom = {
-        nextByte: function() {
-          return 4
-        }
+      this.mockRandom = {
+        nextByte: jasmine.createSpy('nextByte').and.returnValue(140)
       };
 
-      this.subject = new KKSS.generator(mockRandom);
+      this.subject = new KKSS.generator(this.mockRandom);
     });
 
     describe("polynomial", function() {
@@ -87,19 +85,15 @@ describe("Client", function() {
       expect(this.subject.evaluate(poly, 250)).toBe(250);
     });
 
-    describe("decompose", function() {
+    describe("decomposition", function() {
       beforeEach(function() {
-        this.secret = "abcdefgh";
         this.n = 3;
         this.k = 2;
       });
 
-      it("creates the correct number of parts", function() {
-        var parts = this.subject.decompose(this.secret, this.k, this.n);
-        expect(parts.length).toBe(this.n);
-        for (var i = 0; i < this.n; i++) {
-          expect(typeof parts[i]).toBe("string");
-        }
+      it("decomposes a single byte", function() {
+        var parts = this.subject.decomposeByte('a', this.k, this.n);
+        expect(parts).toEqual([[1, "237"], [2, "126"], [3, "015"]]);
       });
 
       it("creates the correct number of parts", function() {
