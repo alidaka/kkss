@@ -92,12 +92,13 @@ describe("Client", function() {
       });
 
       it("decomposes a single byte", function() {
-        var parts = this.subject.decomposeByte('a', this.k, this.n);
+        var parts = this.subject.decompose('a', this.k, this.n);
         expect(parts).toEqual([[1, "237"], [2, "126"], [3, "015"]]);
       });
 
-      it("creates the correct number of parts", function() {
-        var parts = this.subject.decompose(this.secret, this.k, this.n);
+      it("decomposes a multibyte string", function() {
+        var parts = this.subject.decompose('aaa', this.k, this.n);
+        expect(parts).toEqual([[1, "237237237"], [2, "126126126"], [3, "015015015"]]);
       });
     });
   });

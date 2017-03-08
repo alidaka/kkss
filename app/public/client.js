@@ -43,14 +43,30 @@
     return y;
   };
 
-  KKSS.generator.prototype.decomposeByte = function(secret, k, pieceCount) {
-    var poly = this.polynomial(secret.codePointAt(0), k);
+  KKSS.generator.prototype._decomposeByte = function(secret, k, pieceCount) {
+    var poly = this.polynomial(secret.charCodeAt(0), k);
     var pieces = [];
     for (var i = 1; i <= pieceCount; i++) {
-      pieces.push([i, pad(this.evaluate(poly, i), 3)]);
+      pieces.push(pad(this.evaluate(poly, i), 3));
     }
 
     return pieces;
+  };
+
+  KKSS.generator.prototype.decompose = function(secret, k, pieceCount) {
+    var secretPieces = new Array(pieceCount);
+    for (var i = 0; i < pieceCount; i++) {
+      secretPieces[i] = [i+1, ''];
+    }
+
+    for (var i = 0; i < secret.length; i++) {
+      var bytePieces = this._decomposeByte(secret[i], k, pieceCount);
+      for (var j = 0; j < pieceCount; j++) {
+        secretPieces[j][1] += bytePieces[j];
+      }
+    }
+
+    return secretPieces
   };
 
   function pad(str, length) {
