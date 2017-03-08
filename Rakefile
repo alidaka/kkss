@@ -3,10 +3,13 @@ load 'jasmine/tasks/jasmine.rake'
 
 task :default => [:test]
 
-task :test do
+task :set_jasmine_config do
   ENV['JASMINE_CONFIG_PATH'] = 'spec/client/jasmine.yml'
-  Rake::Task['jasmine:ci'].invoke
 end
+
+task 'jasmine:configure' => [:set_jasmine_config]
+
+task :test => ['jasmine:ci']
 
 task :run do
   ruby 'app/server.rb'
