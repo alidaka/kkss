@@ -35,6 +35,21 @@ describe("Client", function() {
       });
     });
 
+    describe("subtraction", function() {
+      it("supports the identity", function() {
+        expect(KKSS.subtract(1, 0)).toEqual(1);
+      });
+
+      it("supports trivial cases", function() {
+        expect(KKSS.subtract(2, 1)).toEqual(1);
+      });
+
+      it("wraps around", function() {
+        expect(KKSS.subtract(1, 2)).toEqual(250);
+        expect(KKSS.subtract(1, 253)).toEqual(250);
+      });
+    });
+
     describe("multiplication", function() {
       it("supports the identity", function() {
         expect(KKSS.multiply(1, 3)).toBe(3);
@@ -137,6 +152,20 @@ describe("Client", function() {
 
         var parts = this.subject.decompose('abba', this.k, this.n);
         expect(parts).toEqual([[1, "237104221055"], [2, "126110093013"], [3, "015116216222"]]);
+      });
+    });
+
+    describe("reconstruction", function() {
+      it("reconstructs single byte secrets", function() {
+        var aParts = [[1, "237"], [2, "126"], [3, "015"]];
+        expect(this.subject.reconstruct(aParts[0], aParts[1])).toEqual('a');
+        expect(this.subject.reconstruct(aParts[0], aParts[2])).toEqual('a');
+        expect(this.subject.reconstruct(aParts[2], aParts[1])).toEqual('a');
+
+        var bParts = [[1, "238"], [2, "127"], [3, "016"]];
+        expect(this.subject.reconstruct(bParts[0], bParts[1])).toEqual('b');
+        expect(this.subject.reconstruct(bParts[0], bParts[2])).toEqual('b');
+        expect(this.subject.reconstruct(bParts[2], bParts[1])).toEqual('b');
       });
     });
   });

@@ -11,12 +11,25 @@
     console.log("booo!");
   };
 
+  KKSS.limit = function(x) {
+    var mod = x % KKSS.order;
+    if (mod < 0) {
+      mod += KKSS.order;
+    }
+
+    return mod;
+  };
+
   KKSS.add = function(a, b) {
-    return (a+b) % KKSS.order;
+    return KKSS.limit(a+b);
+  };
+
+  KKSS.subtract = function(a, b) {
+    return KKSS.limit(KKSS.limit(a)-KKSS.limit(b));
   };
 
   KKSS.multiply = function(a, b) {
-    return (a*b) % KKSS.order;
+    return KKSS.limit(a*b);
   };
 
   // https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm
@@ -92,6 +105,13 @@
     }
 
     return secretPieces
+  };
+
+  KKSS.generator.prototype.reconstruct = function(onePart, otherPart) {
+    var secretAccumulator = 0;
+    secretAccumulator = KKSS.add(secretAccumulator, KKSS.multiply(parseInt(onePart[1], 10), KKSS.divide(otherPart[0], KKSS.subtract(otherPart[0], onePart[0]))));
+    secretAccumulator = KKSS.add(secretAccumulator, KKSS.multiply(parseInt(otherPart[1], 10), KKSS.divide(onePart[0], KKSS.subtract(onePart[0], otherPart[0]))));
+    return String.fromCharCode(secretAccumulator);
   };
 
   function pad(str, length) {
