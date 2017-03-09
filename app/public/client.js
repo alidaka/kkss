@@ -39,6 +39,11 @@
     return ts[0];
   };
 
+  KKSS.divide = function(numerator, denominator) {
+    var inverse = KKSS.inverse(denominator);
+    return KKSS.multiply(numerator, inverse);
+  };
+
   KKSS.generator = function(random) {
     this.random = random;
   };

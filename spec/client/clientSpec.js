@@ -51,6 +51,20 @@ describe("Client", function() {
       });
     });
 
+    describe("division", function() {
+      it("supports the identity", function() {
+        expect(KKSS.divide(123, 1)).toEqual(123);
+      });
+
+      it("supports a trivial case", function() {
+        expect(KKSS.divide(123, 2)).toEqual(187);
+      });
+
+      it("has some sanity checks", function() {
+        expect(KKSS.divide(123, 2)).toEqual(187);
+      });
+    });
+
     describe("inverse", function() {
       it("calculates a multiplicative inverse", function() {
         expect(KKSS.inverse(126)).toBe(2);
