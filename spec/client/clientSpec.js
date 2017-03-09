@@ -172,6 +172,11 @@ describe("Client", function() {
         var parts = [[1, '126'], [2, '184'], [3, '020']];
         expect(this.subject.reconstruct(parts[0], parts[1], parts[2])).toEqual('a');
       });
+
+      it("reconstructs multi-byte secrets", function() {
+        var parts = [[1, "237104221055"], [2, "126110093013"]];
+        expect(this.subject.reconstruct(parts[0], parts[1])).toEqual("abba");
+      });
     });
   });
 });

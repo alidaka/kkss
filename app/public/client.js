@@ -6,6 +6,7 @@
   var KKSS = window.KKSS = {};
 
   KKSS.order = 251;
+  KKSS.byteLength = Math.ceil(Math.log(251)/Math.log(10));
 
   function boot() {
     console.log("booo!");
@@ -85,7 +86,7 @@
     var poly = this.polynomial(secret.charCodeAt(0), k);
     var pieces = [];
     for (var i = 1; i <= pieceCount; i++) {
-      pieces.push(pad(this.evaluate(poly, i), 3));
+      pieces.push(pad(this.evaluate(poly, i)));
     }
 
     return pieces;
@@ -107,18 +108,17 @@
     return secretPieces
   };
 
-  KKSS.generator.prototype.reconstruct = function() {
-    var parts = arguments;
+  KKSS.generator.prototype._reconstructByte = function(pieces) {
     var secretAccumulator = 0;
-    for (var j = 0; j < parts.length; j++) {
-      var input_j = parts[j][0];
-      var output_j = parseInt(parts[j][1]);
+    for (var j = 0; j < pieces.length; j++) {
+      var input_j = pieces[j][0];
+      var output_j = parseInt(pieces[j][1]);
 
       var lagrangeAccumulator = 1;
-      for (var m = 0; m < parts.length; m++) {
+      for (var m = 0; m < pieces.length; m++) {
         if (m === j) { continue; }
 
-        var input_m = parts[m][0];
+        var input_m = pieces[m][0];
         var term = KKSS.divide(input_m, KKSS.subtract(input_m, input_j));
         lagrangeAccumulator = KKSS.multiply(lagrangeAccumulator, term);
       }
@@ -129,9 +129,28 @@
     return String.fromCharCode(secretAccumulator);
   };
 
-  function pad(str, length) {
+  KKSS.generator.prototype.reconstruct = function() {
+    var pieces = arguments;
+    var byteComponents = pieces[0][1].length / KKSS.byteLength;
+    var secretAccumulator = [];
+
+    for (var i = 0; i < byteComponents; i++) {
+      var byteParts = new Array(pieces.length);
+      for (var keyPiece = 0; keyPiece < pieces.length; keyPiece++) {
+        var pieceInput = pieces[keyPiece][0];
+        var pieceOutput = pieces[keyPiece][1].substr(KKSS.byteLength * i, KKSS.byteLength);
+        byteParts[keyPiece] = [pieceInput, pieceOutput];
+      }
+
+      secretAccumulator.push(this._reconstructByte(byteParts));
+    }
+
+    return secretAccumulator.join('');
+  };
+
+  function pad(str) {
     var s = str + '';
-    while (s.length < length) {
+    while (s.length < KKSS.byteLength) {
       s = '0' + s;
     }
 
