@@ -167,6 +167,11 @@ describe("Client", function() {
         expect(this.subject.reconstruct(bParts[0], bParts[2])).toEqual('b');
         expect(this.subject.reconstruct(bParts[2], bParts[1])).toEqual('b');
       });
+
+      it("reconstructs single byte secrets from many pieces", function() {
+        var parts = [[1, '126'], [2, '184'], [3, '020']];
+        expect(this.subject.reconstruct(parts[0], parts[1], parts[2])).toEqual('a');
+      });
     });
   });
 });

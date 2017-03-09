@@ -107,10 +107,25 @@
     return secretPieces
   };
 
-  KKSS.generator.prototype.reconstruct = function(onePart, otherPart) {
+  KKSS.generator.prototype.reconstruct = function() {
+    var parts = arguments;
     var secretAccumulator = 0;
-    secretAccumulator = KKSS.add(secretAccumulator, KKSS.multiply(parseInt(onePart[1], 10), KKSS.divide(otherPart[0], KKSS.subtract(otherPart[0], onePart[0]))));
-    secretAccumulator = KKSS.add(secretAccumulator, KKSS.multiply(parseInt(otherPart[1], 10), KKSS.divide(onePart[0], KKSS.subtract(onePart[0], otherPart[0]))));
+    for (var j = 0; j < parts.length; j++) {
+      var input_j = parts[j][0];
+      var output_j = parseInt(parts[j][1]);
+
+      var lagrangeAccumulator = 1;
+      for (var m = 0; m < parts.length; m++) {
+        if (m === j) { continue; }
+
+        var input_m = parts[m][0];
+        var term = KKSS.divide(input_m, KKSS.subtract(input_m, input_j));
+        lagrangeAccumulator = KKSS.multiply(lagrangeAccumulator, term);
+      }
+
+      secretAccumulator = KKSS.add(secretAccumulator, KKSS.multiply(output_j, lagrangeAccumulator));
+    }
+
     return String.fromCharCode(secretAccumulator);
   };
 
