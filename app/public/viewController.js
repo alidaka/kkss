@@ -18,7 +18,7 @@
     var list = document.createElement("ul");
     for (var i = 0; i < partialKeys.length; i++) {
       var part = document.createElement("li");
-      part.innerText = '' + partialKeys[i][0] + '-' + partialKeys[i][1];
+      part.innerText = [minimumParts, partialKeys[i][0], partialKeys[i][1]].join('-');
       list.appendChild(part);
     }
 

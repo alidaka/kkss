@@ -37,8 +37,8 @@ describe("ViewController", function() {
     var button = this.inputForm.querySelector("[name=generate-button]");
     button.dispatchEvent(evt);
 
-    expect(this.outputDiv.innerHTML).toContain("1-123123123");
-    expect(this.outputDiv.innerHTML).toContain("2-123123124");
-    expect(this.outputDiv.innerHTML).toContain("3-123123125");
+    expect(this.outputDiv.innerHTML).toContain("2-1-123123123");
+    expect(this.outputDiv.innerHTML).toContain("2-2-123123124");
+    expect(this.outputDiv.innerHTML).toContain("2-3-123123125");
   });
 });
