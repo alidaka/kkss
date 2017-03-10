@@ -8,33 +8,48 @@
     this.input.addEventListener("submit", this.submitHandler.bind(this));
   };
 
-  KKSS.viewController.prototype._viewForKeys = function(keys, minimumParts) {
+  KKSS.viewController.prototype._unpackForm = function() {
+    return {
+      secret: this.input.querySelector("[name=secret]").value,
+      totalParts: parseInt(this.input.querySelector("[name=total-parts]").value),
+      minimumParts: parseInt(this.input.querySelector("[name=minimum-parts]").value)
+    };
+  };
+
+  KKSS.viewController.prototype._decomposeSecret = function(secret, minimumParts, totalParts) {
+    var keys = this.generator.decompose(secret, minimumParts, totalParts);
+    return keys.map(function(key) {
+      return [minimumParts, key[0], key[1]].join('-');
+    });
+  };
+
+  KKSS.viewController.prototype._viewForKeys = function(keys) {
     var list = document.createElement("ul");
-    for (var i = 0; i < keys.length; i++) {
+    keys.forEach(function(key) {
       var part = document.createElement("li");
-      part.innerText = [minimumParts, keys[i][0], keys[i][1]].join('-');
+      part.innerText = key;
       list.appendChild(part);
-    }
+    });
 
     return list;
+  };
+
+  KKSS.viewController.prototype._updateView = function(newView) {
+    if (this.output.firstChild) {
+        this.output.removeChild(this.output.firstChild);
+    }
+
+    this.output.appendChild(newView);
   };
 
   KKSS.viewController.prototype.submitHandler = function(event) {
     event.preventDefault();
 
-    var secret = this.input.querySelector("[name=secret]").value;
-    var totalParts = parseInt(this.input.querySelector("[name=total-parts]").value);
-    var minimumParts = parseInt(this.input.querySelector("[name=minimum-parts]").value);
-    var keys = this.generator.decompose(secret, minimumParts, totalParts);
+    var parameters = this._unpackForm();
+    var keys = this._decomposeSecret(parameters.secret, parameters.minimumParts, parameters.totalParts);
+    var view = this._viewForKeys(keys);
 
-    var view = this._viewForKeys(keys, minimumParts);
-
-    if (this.output.firstChild) {
-        this.output.removeChild(this.output.firstChild);
-    }
-
-    this.output.appendChild(view);
-
+    this._updateView(view);
     return false;
   };
 })();
