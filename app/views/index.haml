@@ -1,11 +1,13 @@
 %html
   %head
     %script{:type => "text/javascript", :src => "client.js"}
+    %script{:type => "text/javascript", :src => "random.js"}
+    %script{:type => "text/javascript", :src => "viewController.js"}
 
   %body
     #content
       %h1 k-key secret sharing
-      #input-form
+      %form{:id => "input-form"}
         Secret:
         %input{:type => "text", :required => true, :name => "secret"}
         %br/
@@ -15,4 +17,6 @@
         Partial keys needed to reconstruct secret:
         %input{:type => "number", :required => true, :min => "2", :name => "minimum-parts", :value => 2}
         %br/
-        %input{:type => "submit", :value => "Generate Partial Keys!"}
+        %input{:type => "submit", :name => "generate-button", :value => "Generate Partial Keys!"}
+
+    %script document.addEventListener('DOMContentLoaded', KKSS.boot(), false);

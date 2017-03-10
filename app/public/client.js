@@ -8,8 +8,11 @@
   KKSS.order = 251;
   KKSS.byteLength = Math.ceil(Math.log(251)/Math.log(10));
 
-  function boot() {
-    console.log("booo!");
+  KKSS.boot = function() {
+    KKSS._generator = new KKSS.generator(new KKSS.random());
+
+    var formRoot = document.getElementById("input-form");
+    KKSS._viewController = new KKSS.viewController(formRoot, KKSS._generator);
   };
 
   KKSS.limit = function(x) {
@@ -105,7 +108,7 @@
       }
     }
 
-    return secretPieces
+    return secretPieces;
   };
 
   KKSS.generator.prototype._reconstructByte = function(pieces) {
