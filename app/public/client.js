@@ -12,7 +12,8 @@
     KKSS._generator = new KKSS.generator(new KKSS.random());
 
     var formRoot = document.getElementById("input-form");
-    KKSS._viewController = new KKSS.viewController(formRoot, KKSS._generator);
+    var outputRoot = document.getElementById("partial-keys");
+    KKSS._viewController = new KKSS.viewController(formRoot, outputRoot, KKSS._generator);
   };
 
   KKSS.limit = function(x) {
