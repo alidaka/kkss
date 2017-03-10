@@ -1,4 +1,4 @@
-describe("ViewController", function() {
+describe("generateView", function() {
   beforeEach(function() {
     this.inputForm = document.createElement("form");
     this.inputForm.innerHTML = '';
@@ -13,7 +13,7 @@ describe("ViewController", function() {
       decompose: jasmine.createSpy('decompose').and.returnValue([[1, "123123123"], [2, "123123124"], [3, "123123125"]])
     };
 
-    this.subject = new KKSS.viewController(this.inputForm, this.outputDiv, this.mockGenerator);
+    this.subject = new KKSS.generateView(this.inputForm, this.outputDiv, this.mockGenerator);
 
     this.submitForm = function() {
       var button = this.inputForm.querySelector("[name=generate-button]");
