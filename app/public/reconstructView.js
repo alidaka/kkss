@@ -1,8 +1,13 @@
 (function() {
 "use strict";
-  KKSS.reconstructView = function(input, generator) {
+  KKSS.createViewController = function(input, output, generator) {
+    return new KKSS.reconstructView(input, output, generator);
+  };
+
+  KKSS.reconstructView = function(input, output, generator) {
     this.generator = generator;
     this.input = input;
+    this.output = output;
 
     this.input.addEventListener("submit", this.submitHandler.bind(this));
   };
@@ -20,6 +25,6 @@
       keys.push([parseInt(parts[1]), parts[2]]);
     }
 
-    this.generator.reconstruct.apply(this.generator, keys);
+    this.output.innerText = this.generator.reconstruct.apply(this.generator, keys);
   };
 })();

@@ -13,7 +13,7 @@
 
     var formRoot = document.getElementById("input-form");
     var outputRoot = document.getElementById("partial-keys");
-    KKSS._viewController = new KKSS.viewController(formRoot, outputRoot, KKSS._generator);
+    KKSS._viewController = KKSS.createViewController(formRoot, outputRoot, KKSS._generator);
   };
 
   KKSS.limit = function(x) {

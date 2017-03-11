@@ -1,5 +1,9 @@
 (function() {
 "use strict";
+  KKSS.createViewController = function(input, output, generator) {
+    return new KKSS.generateView(input, output, generator);
+  };
+
   KKSS.generateView = function(input, output, generator) {
     this.generator = generator;
     this.output = output;
