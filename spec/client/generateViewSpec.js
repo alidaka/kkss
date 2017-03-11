@@ -17,12 +17,12 @@ describe("generateView", function() {
   });
 
   it("decomposes the secret when the submit button is clicked", function() {
-    this.submitForm();
+    this.submitForm("generate-button");
     expect(this.mockGenerator.decompose).toHaveBeenCalledWith("hello", 2, 3);
   });
 
   it("prints out the result of decomposing the secret", function() {
-    this.submitForm();
+    this.submitForm("generate-button");
     expect(this.outputDiv.innerHTML).toContain("2-1-123123123");
     expect(this.outputDiv.innerHTML).toContain("2-2-123123124");
     expect(this.outputDiv.innerHTML).toContain("2-3-123123125");
@@ -32,7 +32,7 @@ describe("generateView", function() {
     var staleContent = document.createElement("ul");
     this.outputDiv.appendChild(staleContent);
 
-    this.submitForm();
+    this.submitForm("generate-button");
     expect(this.outputDiv.children).not.toContain(staleContent);
   });
 });

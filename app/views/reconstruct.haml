@@ -1,0 +1,22 @@
+%html
+  %head
+    %script{:type => "text/javascript", :src => "client.js"}
+    %script{:type => "text/javascript", :src => "random.js"}
+    %script{:type => "text/javascript", :src => "viewController.js"}
+
+  %body
+    #content
+      %h1 k-key secret sharing - reconstruction
+      %form{:id => "input-form"}
+        Keys:
+        %br/
+        %input.partial-key{:type => "text", :name => "key0"}
+        %br/
+        %input.partial-key{:type => "text", :name => "key1"}
+        %input{:type => "button", :name => "add-key-button", :value => "+"}
+        %br/
+        %input{:type => "submit", :name => "reconstruct-button", :value => "Reconstruct!"}
+
+      #partial-keys
+
+    %script document.addEventListener('DOMContentLoaded', KKSS.boot(), false);

@@ -12,8 +12,8 @@ beforeEach(function() {
     }
   })
 
-  this.submitForm = function() {
-    var button = this.inputForm.querySelector("[name=generate-button]");
+  this.submitForm = function(name) {
+    var button = this.inputForm.querySelector("[name="+name+"]");
 
     var evt;
     try {
