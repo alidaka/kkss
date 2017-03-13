@@ -1,3 +1,12 @@
 language: ruby
 rvm:
-  - 2.3.3
+- 2.3.3
+deploy:
+  edge: true
+  provider: cloudfoundry
+  username: sealabs-beach@googlegroups.com
+  password:
+    secure: MBQ/sbE2XRinmxByQSZjYc/ccwnVP8E3ODQXlu1DofrLnbIPNW2P2jp9V2WUzeY/dYjKCRitmh5XL0U4k4/sq/1euaWSM/V+zT8lkWv/NVBfZGW3JrEcfv+4ofkLfKSIg8PROuDhjifUlZaRBgvYfbHbEY9Y3MxHV0eX8K8uyNEPABZ+s9ntCDhj74Arx7L+B55RhX3CJXJaqCICTtbtxpP3YzVL1jImQEME0P836jZJeQuBq8Uv7Y+zgKpgQv4qu2zGN9AufbwbJAvmzh/yvdeXEU/wMqM81MwCQ/FelIwt94p20gr0QsUjjiSU3O0hHqnnC9yhPMTzoa0XfjC/n4lpSm3dgyVRDuIt0GEj40SbnIGXvG1vCs86xN8UaZAjTwU+mfB4MGSl1qqcna77AJa15ni4cYRNxhHnfHQLFIxoSZgBDYDNMlCUKw3K2TZNrU07z8az9bWLzw84VS0K54HT63iUYthpMj0M4Ewi4JnFGy/FbD2Jy6Ea+t3h0criO1KbMr8zy7iGU8oakODCmEJGW8DNIfUi0uGSrNwX7vvyFJXmD1IL+w/k/SIk8kOJNBw4QhCgTomvkK5dT59b1R/vO44iXreHXBdz8p/z7yG3VMg3z1PvBGyYrawSNMhdDm62K1a1UI87lftfY7VWr4syj/5ixrUOfYokMPo5Daw=
+  api: https://api.run.pivotal.io
+  organization: seattle-beach
+  space: dev

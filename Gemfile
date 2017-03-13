@@ -8,4 +8,5 @@ gem 'rake'
 
 group :development do
   gem 'rerun'
+  gem 'travis'
 end
