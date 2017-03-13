@@ -1,0 +1,12 @@
+%html
+  %head
+    %script{:type => "text/javascript", :src => "client.js"}
+    %script{:type => "text/javascript", :src => "random.js"}
+
+  %body
+    #content
+      %h1= "k-key secret sharing - #{@title}"
+
+      = yield
+
+    %script document.addEventListener('DOMContentLoaded', KKSS.boot(), false);
