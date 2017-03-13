@@ -3,6 +3,10 @@ describe("Random", function() {
     this.subject = new KKSS.random();
   });
 
+  it("fails", function() {
+    expect(true).toBe(false);
+  });
+
   it("generates numbers", function() {
     var x = this.subject.nextByte();
     expect(typeof x).toBe("number");
