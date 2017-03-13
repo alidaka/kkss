@@ -10,3 +10,6 @@ deploy:
   api: https://api.run.pivotal.io
   organization: seattle-beach
   space: dev
+branches:
+  only:
+    - master
