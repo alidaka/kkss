@@ -10,6 +10,22 @@
     this.output = output;
 
     this.input.addEventListener("submit", this.submitHandler.bind(this));
+
+    this.addKeyButton = this.input.querySelector("[name=add-key-button]");
+    this.addKeyButton.addEventListener("click", this.addKeyHandler.bind(this));
+  };
+
+  KKSS.reconstructView.prototype.addKeyHandler = function(event) {
+    var newKeyField = document.createElement("input");
+    newKeyField.setAttribute("class", "partial-key");
+    newKeyField.setAttribute("type", "text");
+
+    var partialKeyCount = this.input.querySelectorAll(".partial-key").length;
+    newKeyField.setAttribute("name", "key"+partialKeyCount);
+
+    this.input.insertBefore(document.createElement("br"), this.addKeyButton);
+    this.input.insertBefore(newKeyField, this.addKeyButton);
+    return false;
   };
 
   KKSS.reconstructView.prototype.submitHandler = function(event) {
@@ -26,5 +42,6 @@
     }
 
     this.output.innerText = this.generator.reconstruct.apply(this.generator, keys);
+    return false;
   };
 })();

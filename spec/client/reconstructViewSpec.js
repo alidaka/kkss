@@ -4,6 +4,7 @@ describe("reconstructView", function() {
     this.inputForm.innerHTML = '';
     this.inputForm.innerHTML += '<input name="key0" class="partial-key" type="text"   value="2-1-123123123">';
     this.inputForm.innerHTML += '<input name="key1" class="partial-key" type="text"   value="2-2-123123124">';
+    this.inputForm.innerHTML += '<input name="add-key-button" type="button">';
     this.inputForm.innerHTML += '<input name="reconstruct-button" type="submit">';
 
     this.outputDiv = document.createElement("div");
@@ -48,5 +49,12 @@ describe("reconstructView", function() {
   it("prints out the result of decomposing the secret", function() {
     this.submitForm("reconstruct-button");
     expect(this.outputDiv.innerHTML).toContain("hello");
+  });
+
+  it("adds partial key fields", function() {
+    this.submitForm("add-key-button");
+
+    expect(this.inputForm.querySelectorAll(".partial-key").length).toBe(3);
+    expect(this.inputForm.querySelector("[name=key2]")).toEqual(jasmine.anything());
   });
 });
