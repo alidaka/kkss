@@ -3,7 +3,7 @@ require 'haml'
 
 get '/' do
   @title = 'generation';
-  haml :index
+  haml :generate
 end
 
 get '/reconstruct' do
