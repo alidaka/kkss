@@ -1,4 +1,4 @@
 applications:
 - name: kkss
   memory: 256MB
-  command: bundle exec rake run
+  command: bundle install && bundle exec rake run
