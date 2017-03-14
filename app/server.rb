@@ -15,3 +15,6 @@ get '/message' do
   @title = 'encrypt message';
   haml :encryptMessage
 end
+
+post '/message' do
+end
