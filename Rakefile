@@ -1,15 +1,21 @@
-require 'jasmine'
-load 'jasmine/tasks/jasmine.rake'
+begin # test dependencies don't exist in production
+  require 'jasmine'
+  load 'jasmine/tasks/jasmine.rake'
 
-task :default => [:test]
+  require 'rspec/core/rake_task'
+  RSpec::Core::RakeTask.new(:spec)
 
-task :set_jasmine_config do
-  ENV['JASMINE_CONFIG_PATH'] = 'spec/client/jasmine.yml'
+  task :default => [:test]
+
+  task :set_jasmine_config do
+    ENV['JASMINE_CONFIG_PATH'] = 'spec/client/jasmine.yml'
+  end
+
+  task 'jasmine:configure' => [:set_jasmine_config]
+
+  task :test => ['jasmine:ci', 'spec']
+rescue LoadError
 end
-
-task 'jasmine:configure' => [:set_jasmine_config]
-
-task :test => ['jasmine:ci']
 
 task :run do
   ruby 'app/server.rb'

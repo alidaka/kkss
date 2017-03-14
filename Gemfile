@@ -4,7 +4,6 @@ ruby '2.3.3'
 gem 'sinatra'
 gem 'haml'
 gem 'rake'
-gem 'jasmine'
 
 group :development do
   gem 'rerun'
@@ -12,6 +11,7 @@ group :development do
 end
 
 group :test do
+  gem 'jasmine'
   gem 'rspec'
   gem 'rack-test'
 end
