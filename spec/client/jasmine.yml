@@ -11,6 +11,9 @@
 #   - 'dist/**/*.js'
 #
 src_files:
+  - 'public/client.js'
+  - 'public/client.js'
+  - 'public/generateView.js'
   - 'public/**/*.js'
 
 # spec_files
@@ -49,6 +52,7 @@ src_dir: 'app'
 spec_dir: 'spec/client'
 
 helpers:
+  - 'support/mock-ajax.js'
   - 'specHelper.js'
 
 random: true

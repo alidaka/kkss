@@ -35,4 +35,14 @@ describe("generateView", function() {
     this.submitForm("generate-button");
     expect(this.outputDiv.children).not.toContain(staleContent);
   });
+
+  it("unpacks the form", function() {
+    var parameters = this.subject.unpackForm();
+    expect(parameters).toEqual({secret: "hello", totalParts: 3, minimumParts: 2});
+  });
+
+  it("decomposes secrets", function() {
+    var partialKeys = this.subject.decomposeSecret("hello", 2, 3);
+    expect(partialKeys).toEqual(["2-1-123123123", "2-2-123123124", "2-3-123123125"])
+  });
 });

@@ -1,0 +1,16 @@
+%script{:type => "text/javascript", :src => "generateView.js"}
+%script{:type => "text/javascript", :src => "generateMessageView.js"}
+
+%form{:id => "input-form"}
+  Secret:
+  %input{:type => "text", :required => true, :name => "secret"}
+  %br/
+  Partial keys to generate:
+  %input{:type => "number", :required => true, :min => "2", :name => "total-parts", :value => 3}
+  %br/
+  Partial keys needed to reconstruct secret:
+  %input{:type => "number", :required => true, :min => "2", :name => "minimum-parts", :value => 2}
+  %br/
+  %input{:type => "submit", :name => "generate-button", :value => "Generate Partial Keys!"}
+
+#partial-keys

@@ -10,3 +10,8 @@ get '/reconstruct' do
   @title = 'reconstruction';
   haml :reconstruct
 end
+
+get '/message' do
+  @title = 'encrypt message';
+  haml :encryptMessage
+end

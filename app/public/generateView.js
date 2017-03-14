@@ -12,7 +12,7 @@
     this.input.addEventListener("submit", this.submitHandler.bind(this));
   };
 
-  KKSS.generateView.prototype._unpackForm = function() {
+  KKSS.generateView.prototype.unpackForm = function() {
     return {
       secret: this.input.querySelector("[name=secret]").value,
       totalParts: parseInt(this.input.querySelector("[name=total-parts]").value),
@@ -20,14 +20,14 @@
     };
   };
 
-  KKSS.generateView.prototype._decomposeSecret = function(secret, minimumParts, totalParts) {
+  KKSS.generateView.prototype.decomposeSecret = function(secret, minimumParts, totalParts) {
     var keys = this.generator.decompose(secret, minimumParts, totalParts);
     return keys.map(function(key) {
       return [minimumParts, key[0], key[1]].join('-');
     });
   };
 
-  KKSS.generateView.prototype._viewForKeys = function(keys) {
+  KKSS.generateView.prototype.viewForKeys = function(keys) {
     var list = document.createElement("ul");
     keys.forEach(function(key) {
       var part = document.createElement("li");
@@ -38,7 +38,7 @@
     return list;
   };
 
-  KKSS.generateView.prototype._updateView = function(newView) {
+  KKSS.generateView.prototype.updateView = function(newView) {
     if (this.output.firstChild) {
         this.output.removeChild(this.output.firstChild);
     }
@@ -49,11 +49,11 @@
   KKSS.generateView.prototype.submitHandler = function(event) {
     event.preventDefault();
 
-    var parameters = this._unpackForm();
-    var keys = this._decomposeSecret(parameters.secret, parameters.minimumParts, parameters.totalParts);
-    var view = this._viewForKeys(keys);
+    var parameters = this.unpackForm();
+    var keys = this.decomposeSecret(parameters.secret, parameters.minimumParts, parameters.totalParts);
+    var view = this.viewForKeys(keys);
 
-    this._updateView(view);
+    this.updateView(view);
     return false;
   };
 })();
