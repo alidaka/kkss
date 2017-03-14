@@ -1,7 +1,7 @@
 (function() {
 "use strict";
   KKSS.createViewController = function(input, output, generator) {
-    return new KKSS.generateMessageView(input, output, generator, new random());
+    return new KKSS.generateMessageView(input, output, generator, new KKSS.random(), new KKSS.aes());
   };
 
   KKSS.generateMessageView = function(input, output, generator, random, aes) {
