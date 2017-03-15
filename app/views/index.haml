@@ -1,0 +1,23 @@
+%html
+  %head
+    %link{:rel => :stylesheet, :type => :"text/css", :href => "style.css"}
+    %link{:href => "https://fonts.googleapis.com/css?family=Cantarell|Fjalla+One", :rel =>"stylesheet"}
+    %link{:href => "https://fonts.googleapis.com/icon?family=Material+Icons", :rel =>"stylesheet"}
+
+  %body
+    #splash
+      %img{:class => 'key', :src =>"/images/keys.png"}
+      %h1= "KiKaSS SECRET SHARING"
+      %h2{:class => "subtext"}="Your secrets are safe with us!"
+      .nav
+        .nav-button{:onclick => "location.href='/generate';"}
+          .circle
+            .inner-circle
+              %i{:class => "material-icons"}="vpn_key"
+          .label="GENERATE LOCK CODES"
+        .nav-button{:onclick => "location.href='/reconstruct';"}
+          .circle
+            .inner-circle
+              %i{:class => "material-icons"}="lock_open"
+          .label="DECODE YOUR SECRET"
+

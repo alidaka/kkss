@@ -2,6 +2,10 @@ require 'sinatra'
 require 'haml'
 
 get '/' do
+	haml :index, :layout => false
+end
+
+get '/generate' do
   @title = 'generation';
   haml :generate
 end
