@@ -73,23 +73,6 @@ describe("Client", function() {
       });
     });
 
-    describe("exponentiation", function() {
-      it("supports the additive identity as an exponent", function() {
-        expect(KKSS.pow(3, 0)).toBe(1);
-      });
-
-      it("operates within the field", function() {
-        expect(KKSS.pow(3, 1)).toBe(3);
-        expect(KKSS.pow(3, 2)).toBe(5);
-        expect(KKSS.pow(3, 3)).toBe(15);
-        expect(KKSS.pow(3, 4)).toBe(17);
-        expect(KKSS.pow(3, 5)).toBe(51);
-        expect(KKSS.pow(3, 6)).toBe(85);
-        expect(KKSS.pow(3, 7)).toBe(255);
-        expect(KKSS.pow(3, 8)).toBe(26);
-      });
-    });
-
     describe("division", function() {
       it("supports the identity", function() {
         expect(KKSS.divide(123, 1)).toEqual(123);
@@ -101,23 +84,6 @@ describe("Client", function() {
 
       it("has some sanity checks", function() {
         expect(KKSS.divide(26, 3)).toEqual(255);
-      });
-    });
-
-    describe("inverse", function() {
-      it("calculates a multiplicative inverse", function() {
-        expect(KKSS.inverse(141)).toBe(2);
-      });
-
-      it("handles the multiplicative identity, 1", function() {
-        expect(KKSS.inverse(1)).toEqual(1);
-      });
-
-      it("has inverses that multiply by to 1", function() {
-        expect(KKSS.multiply(2, KKSS.inverse(2))).toEqual(1);
-        expect(KKSS.multiply(3, KKSS.inverse(3))).toEqual(1);
-        expect(KKSS.multiply(126, KKSS.inverse(126))).toEqual(1);
-        expect(KKSS.multiply(250, KKSS.inverse(250))).toEqual(1);
       });
     });
   });

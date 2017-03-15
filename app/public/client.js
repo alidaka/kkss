@@ -49,29 +49,14 @@
     return total;
   };
 
-  KKSS.pow = function(base, exponent) {
-    var accumulator = 1;
-    for (var i = 0; i < exponent; i++) {
-      accumulator = KKSS.multiply(accumulator, base);
-    }
-
-    return accumulator;
-  };
-
-  // TODO: consider a more efficient approach, e.g.:
-  // https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm
-  KKSS.inverse = function(x) {
-    var accumulator = 1;
-    for (var i = 0; i < KKSS.order - 2; i++) {
-      accumulator = KKSS.multiply(accumulator, x);
-    }
-
-    return accumulator;
-  };
-
   KKSS.divide = function(numerator, denominator) {
-    var inverse = KKSS.inverse(denominator);
-    return KKSS.multiply(numerator, inverse);
+    var numerator_log = KKSS.log3[numerator];
+    var denominator_log = KKSS.log3[denominator];
+    var difference = (numerator_log - denominator_log) % (KKSS.order - 1);
+    if (difference < 0) {
+      difference += (KKSS.order - 1)
+    }
+    return KKSS.exp3[difference];
   };
 
   KKSS.generator = function(random) {
