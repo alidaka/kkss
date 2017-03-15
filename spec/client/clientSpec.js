@@ -9,29 +9,18 @@ describe("Client", function() {
         expect(KKSS.add(0, 1)).toBe(1);
       });
 
-      it("supports trivial cases", function() {
+      it("supports a trivial case exhaustively", function() {
         expect(KKSS.add(1, 2)).toBe(3);
+        expect(KKSS.add(2, 1)).toBe(3);
+        expect(KKSS.add(1, 3)).toBe(2);
+        expect(KKSS.add(3, 1)).toBe(2);
+        expect(KKSS.add(2, 3)).toBe(1);
+        expect(KKSS.add(3, 2)).toBe(1);
       });
 
       it("is supported if in GF(2^n)", function() {
-        if (KKSS.order % 2 == 0) {
-          expect(KKSS.add(1, 1)).toBe(0);
-        }
-      });
-
-      it("is fully supported", function() {
-        var order = KKSS.order;
-        var generatedElements = new Array(order);
-        var fieldAccumulator = 0;
-
-        for (var i = 0; i < order; i++) {
-          fieldAccumulator = KKSS.add(fieldAccumulator, 1);
-          generatedElements[fieldAccumulator] = true;
-        }
-
-        for (var i = 0; i < order; i++) {
-          expect(generatedElements[i]).toEqualWithMessage(true, i + " not generated");
-        }
+        expect(KKSS.add(1, 1)).toBe(0);
+        expect(KKSS.add(250, 250)).toBe(0);
       });
     });
 
@@ -40,28 +29,46 @@ describe("Client", function() {
         expect(KKSS.subtract(1, 0)).toEqual(1);
       });
 
-      it("supports trivial cases", function() {
-        expect(KKSS.subtract(2, 1)).toEqual(1);
-      });
-
-      it("wraps around", function() {
-        expect(KKSS.subtract(1, 2)).toEqual(250);
-        expect(KKSS.subtract(1, 253)).toEqual(250);
+      it("supports a trivial case exhaustively", function() {
+        expect(KKSS.subtract(1, 2)).toBe(3);
+        expect(KKSS.subtract(2, 1)).toBe(3);
+        expect(KKSS.subtract(1, 3)).toBe(2);
+        expect(KKSS.subtract(3, 1)).toBe(2);
+        expect(KKSS.subtract(2, 3)).toBe(1);
+        expect(KKSS.subtract(3, 2)).toBe(1);
       });
     });
 
     describe("multiplication", function() {
       it("supports the identity", function() {
         expect(KKSS.multiply(1, 3)).toBe(3);
+        expect(KKSS.multiply(158, 1)).toBe(158);
       });
 
       it("supports trivial cases", function() {
         expect(KKSS.multiply(3, 5)).toBe(15);
+        expect(KKSS.multiply(5, 3)).toBe(15);
       });
 
-      it("is supported if in GF(2^n)", function() {
-        if (KKSS.order % 2 == 0) {
-          expect(KKSS.multiply(1, 2)).toBe(0);
+      it("supports more complex cases", function() {
+        expect(KKSS.multiply(15, 3)).toBe(17);
+        expect(KKSS.multiply(255, 3)).toBe(26);
+        expect(KKSS.multiply(15, 15)).toBe(85);
+      });
+
+      it("has a generator", function() {
+        var order = KKSS.order;
+        var generatedElements = new Array(order);
+        var generator = 3;
+        var fieldAccumulator = 1;
+
+        for (var i = 0; i < order; i++) {
+          fieldAccumulator = KKSS.multiply(fieldAccumulator, generator);
+          generatedElements[fieldAccumulator] = true;
+        }
+
+        for (var i = 1; i < order; i++) {
+          expect(generatedElements[i]).toEqualWithMessage(true, i + " not generated");
         }
       });
     });
@@ -72,17 +79,17 @@ describe("Client", function() {
       });
 
       it("supports a trivial case", function() {
-        expect(KKSS.divide(123, 2)).toEqual(187);
+        expect(KKSS.divide(85, 3)).toEqual(51);
       });
 
       it("has some sanity checks", function() {
-        expect(KKSS.divide(123, 2)).toEqual(187);
+        expect(KKSS.divide(26, 3)).toEqual(255);
       });
     });
 
     describe("inverse", function() {
       it("calculates a multiplicative inverse", function() {
-        expect(KKSS.inverse(126)).toBe(2);
+        expect(KKSS.inverse(141)).toBe(2);
       });
 
       it("handles the multiplicative identity, 1", function() {
@@ -123,12 +130,12 @@ describe("Client", function() {
 
     it("evaluates polynomials", function() {
       var poly = [1, 2, 3];
-      expect(this.subject.evaluate(poly, 2)).toBe(17);
+      expect(this.subject.evaluate(poly, 2)).toBe(9);
     });
 
     it("operates within the field", function() {
       var poly = [1, 2];
-      expect(this.subject.evaluate(poly, 250)).toBe(250);
+      expect(this.subject.evaluate(poly, 250)).toBe(238);
     });
 
     describe("decomposition", function() {
@@ -139,37 +146,37 @@ describe("Client", function() {
 
       it("decomposes a single byte", function() {
         var parts = this.subject.decompose('a', this.k, this.n);
-        expect(parts).toEqual([[1, "237"], [2, "126"], [3, "015"]]);
+        expect(parts).toEqual([[1, "237"], [2, "098"], [3, "238"]]);
       });
 
       it("decomposes a multibyte string", function() {
         var parts = this.subject.decompose('aaa', this.k, this.n);
-        expect(parts).toEqual([[1, "237237237"], [2, "126126126"], [3, "015015015"]]);
+        expect(parts).toEqual([[1, "237237237"], [2, "098098098"], [3, "238238238"]]);
       });
 
       it("uses new polynomials for each byte", function() {
         this.mockRandom.nextByte.and.returnValues(140, 6, 123, 209);
 
         var parts = this.subject.decompose('abba', this.k, this.n);
-        expect(parts).toEqual([[1, "237104221055"], [2, "126110093013"], [3, "015116216222"]]);
+        expect(parts).toEqual([[1, "237100025176"], [2, "098110148216"], [3, "238104239009"]]);
       });
     });
 
     describe("reconstruction", function() {
       it("reconstructs single byte secrets", function() {
-        var aParts = [[1, "237"], [2, "126"], [3, "015"]];
+        var aParts = [[1, "237"], [2, "098"], [3, "238"]];
         expect(this.subject.reconstruct(aParts[0], aParts[1])).toEqual('a');
         expect(this.subject.reconstruct(aParts[0], aParts[2])).toEqual('a');
         expect(this.subject.reconstruct(aParts[2], aParts[1])).toEqual('a');
 
-        var bParts = [[1, "238"], [2, "127"], [3, "016"]];
+        var bParts = [[1, "100"], [2, "110"], [3, "104"]];
         expect(this.subject.reconstruct(bParts[0], bParts[1])).toEqual('b');
         expect(this.subject.reconstruct(bParts[0], bParts[2])).toEqual('b');
         expect(this.subject.reconstruct(bParts[2], bParts[1])).toEqual('b');
       });
 
       it("reconstructs single byte secrets from many pieces", function() {
-        var parts = [[1, '126'], [2, '184'], [3, '020']];
+        var parts = [[1, '047'], [2, '005'], [3, '160']];
         expect(this.subject.reconstruct(parts[0], parts[1], parts[2])).toEqual('a');
       });
 
