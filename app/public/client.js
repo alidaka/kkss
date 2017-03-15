@@ -88,14 +88,16 @@
     return poly;
   };
 
+  // https://en.wikipedia.org/wiki/Horner's_method
   KKSS.generator.prototype.evaluate = function(poly, x) {
-    var y = poly[0];
-    for (var i = 1; i < poly.length; i++) {
-      var term = KKSS.multiply(poly[i], KKSS.pow(x, i));
-      y = KKSS.add(y, term);
+    var degree = poly.length - 1;
+
+    var out = poly[degree];
+    for (var i = degree - 1; i >= 0; i--){
+      out = KKSS.add(KKSS.multiply(out, x), poly[i]);
     }
 
-    return y;
+    return out;
   };
 
   KKSS.generator.prototype._decomposeByte = function(secret, k, pieceCount) {
