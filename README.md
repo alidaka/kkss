@@ -12,3 +12,4 @@
 # Future work?
 - Diceware for keys
 - P2P key entry (not single-station)
+- When decomposing short secrets, should we pad them so the original secret length is not so clearly exposed (linear growth partial key length)?

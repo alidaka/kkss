@@ -1,12 +1,14 @@
 (function() {
 "use strict";
 
-  // order options: 251, 256 (caveat: not implemented), 257
-
   var KKSS = window.KKSS = {};
 
-  KKSS.order = 251;
-  KKSS.byteLength = Math.ceil(Math.log(251)/Math.log(10));
+  KKSS.characteristic = 2;
+  KKSS.dimension = 8;
+  KKSS.order = Math.pow(KKSS.characteristic, KKSS.dimension);
+  KKSS.byteLength = Math.ceil(Math.log(KKSS.order)/Math.log(10));
+  KKSS.irreduciblePolynomial = 283;
+  KKSS.irreduciblePolynomialMinusHighestOrderTerm = KKSS.irreduciblePolynomial - KKSS.order;
 
   KKSS.boot = function() {
     KKSS._generator = new KKSS.generator(new KKSS.random());
@@ -16,45 +18,55 @@
     KKSS._viewController = KKSS.createViewController(formRoot, outputRoot, KKSS._generator);
   };
 
-  KKSS.limit = function(x) {
-    var mod = x % KKSS.order;
-    if (mod < 0) {
-      mod += KKSS.order;
-    }
-
-    return mod;
-  };
-
   KKSS.add = function(a, b) {
-    return KKSS.limit(a+b);
+    return a ^ b;
   };
 
   KKSS.subtract = function(a, b) {
-    return KKSS.limit(KKSS.limit(a)-KKSS.limit(b));
+    return a ^ b;
   };
 
-  KKSS.multiply = function(a, b) {
-    return KKSS.limit(a*b);
+  KKSS.multiply = function(multiplier, multiplicand) {
+    var candidate = multiplicand;
+    var total = 0;
+    for (var i = 0; i < KKSS.dimension; i++) {
+      if (multiplier === 0 || candidate === 0) { break; }
+      var multiplierLowBitSet = (multiplier & 1) === 1;
+      if (multiplierLowBitSet) {
+        total = KKSS.add(total, candidate);
+      }
+
+      multiplier = multiplier >> 1;
+
+      var carry = (candidate & 128) === 128;
+      candidate = candidate << 1;
+      if (carry) {
+        candidate = candidate ^ 256;
+        candidate = KKSS.add(candidate, KKSS.irreduciblePolynomialMinusHighestOrderTerm);
+      }
+    }
+
+    return total;
   };
 
+  KKSS.pow = function(base, exponent) {
+    var accumulator = 1;
+    for (var i = 0; i < exponent; i++) {
+      accumulator = KKSS.multiply(accumulator, base);
+    }
+
+    return accumulator;
+  };
+
+  // TODO: consider a more efficient approach, e.g.:
   // https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm
   KKSS.inverse = function(x) {
-    if (x === 1) { return 1; }
-
-    var ts = [0, 1],
-        rs = [KKSS.order, x];
-
-    while(rs[1] !== 0) {
-      var q = Math.floor(rs[0] / rs[1]);
-      ts = [ts[1], ts[0] - KKSS.multiply(q, ts[1])];
-      rs = [rs[1], rs[0] - KKSS.multiply(q, rs[1])];
+    var accumulator = 1;
+    for (var i = 0; i < KKSS.order - 2; i++) {
+      accumulator = KKSS.multiply(accumulator, x);
     }
 
-    if (ts[0] < 0) {
-      ts[0] = ts[0] + KKSS.order;
-    }
-
-    return ts[0];
+    return accumulator;
   };
 
   KKSS.divide = function(numerator, denominator) {
@@ -79,7 +91,7 @@
   KKSS.generator.prototype.evaluate = function(poly, x) {
     var y = poly[0];
     for (var i = 1; i < poly.length; i++) {
-      var term = KKSS.multiply(poly[i], Math.pow(x, i));
+      var term = KKSS.multiply(poly[i], KKSS.pow(x, i));
       y = KKSS.add(y, term);
     }
 
