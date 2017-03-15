@@ -73,6 +73,23 @@ describe("Client", function() {
       });
     });
 
+    describe("exponentiation", function() {
+      it("supports the additive identity as an exponent", function() {
+        expect(KKSS.pow(3, 0)).toBe(1);
+      });
+
+      it("operates within the field", function() {
+        expect(KKSS.pow(3, 1)).toBe(3);
+        expect(KKSS.pow(3, 2)).toBe(5);
+        expect(KKSS.pow(3, 3)).toBe(15);
+        expect(KKSS.pow(3, 4)).toBe(17);
+        expect(KKSS.pow(3, 5)).toBe(51);
+        expect(KKSS.pow(3, 6)).toBe(85);
+        expect(KKSS.pow(3, 7)).toBe(255);
+        expect(KKSS.pow(3, 8)).toBe(26);
+      });
+    });
+
     describe("division", function() {
       it("supports the identity", function() {
         expect(KKSS.divide(123, 1)).toEqual(123);
@@ -149,6 +166,12 @@ describe("Client", function() {
         expect(parts).toEqual([[1, "237"], [2, "098"], [3, "238"]]);
       });
 
+      it("decomposes a single byte into many pieces", function() {
+        this.k = 3;
+        var parts = this.subject.decompose('a', this.k, this.n);
+        expect(parts).toEqual([[1, "097"], [2, "100"], [3, "100"]]);
+      });
+
       it("decomposes a multibyte string", function() {
         var parts = this.subject.decompose('aaa', this.k, this.n);
         expect(parts).toEqual([[1, "237237237"], [2, "098098098"], [3, "238238238"]]);
@@ -176,12 +199,12 @@ describe("Client", function() {
       });
 
       it("reconstructs single byte secrets from many pieces", function() {
-        var parts = [[1, '047'], [2, '005'], [3, '160']];
+        var parts = [[1, '097'], [2, '100'], [3, '100']];
         expect(this.subject.reconstruct(parts[0], parts[1], parts[2])).toEqual('a');
       });
 
       it("reconstructs multi-byte secrets", function() {
-        var parts = [[1, "237104221055"], [2, "126110093013"]];
+        var parts = [[1, "058232140058"], [2, "215109165215"]];
         expect(this.subject.reconstruct(parts[0], parts[1])).toEqual("abba");
       });
     });

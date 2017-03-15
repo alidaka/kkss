@@ -18,15 +18,6 @@
     KKSS._viewController = KKSS.createViewController(formRoot, outputRoot, KKSS._generator);
   };
 
-  KKSS.limit = function(x) {
-    var mod = x % KKSS.order;
-    if (mod < 0) {
-      mod += KKSS.order;
-    }
-
-    return mod;
-  };
-
   KKSS.add = function(a, b) {
     return a ^ b;
   };
@@ -56,6 +47,15 @@
     }
 
     return total;
+  };
+
+  KKSS.pow = function(base, exponent) {
+    var accumulator = 1;
+    for (var i = 0; i < exponent; i++) {
+      accumulator = KKSS.multiply(accumulator, base);
+    }
+
+    return accumulator;
   };
 
   // TODO: consider a more efficient approach, e.g.:
@@ -91,7 +91,7 @@
   KKSS.generator.prototype.evaluate = function(poly, x) {
     var y = poly[0];
     for (var i = 1; i < poly.length; i++) {
-      var term = KKSS.multiply(poly[i], Math.pow(x, i));
+      var term = KKSS.multiply(poly[i], KKSS.pow(x, i));
       y = KKSS.add(y, term);
     }
 
