@@ -6,80 +6,148 @@ body {
 }
 
 h1 {
-	font-family: 'Fjalla One', sans-serif;
-	font-size: 4em;
-	margin-bottom: 5px;
+    font-family: 'Fjalla One', sans-serif;
+    font-size: 4em;
+    margin-bottom: 5px;
 }
 
-.subtext {
-	text-align: right;
-	background-color: #b4e2ec;
-	padding-right: 4px;
+h2 {
+    text-align: right;
+    background-color: #b4e2ec;
+    padding-right: 4px;
 }
 
-.key {
-	width: 460px;
-	height: 460px;
+h3 {
+    background-color: #b4e2ec;
+    padding: 5px;
 }
+
+input[type=submit]:focus,
+input[type=button]:focus,
+input[type=text]:focus,
+input[type=number]:focus{
+    outline:none;
+}
+
+input[type=text],
+input[type=number] {
+    font-family: 'Cantarell', sans-serif;
+    width: 100%;
+    padding: 0.4em;
+    box-sizing: border-box;
+    font-size: 1em;
+    color: #6B6868;
+    border:none;
+    border-bottom: 1px solid #6B6868;
+    background: transparent;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    outline: none;
+    display: block;
+    margin: 0px;
+
+}
+
+input[type=submit],
+input[type=button] {
+    border: 3px solid #EFEFEF;
+    font-family: 'Cantarell', sans-serif;
+    background: #FF5356;
+    padding: 0.6em;
+    color: #fff;
+    font-size: 1em;
+    padding: 0.6em;
+    font-weight: bold;
+    -moz-box-shadow: inset 0px 1px 0px 0px #45D6D6;
+    -webkit-box-shadow: inset 0px 1px 0px 0px #45D6D6;
+    box-shadow: inset 0px 1px 0px 0px #45D6D6;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-top: 1em;
+}
+input[type=submit]:hover,
+input[type=button]:hover{
+    border: 3px solid #7ad0e4;
+    cursor: pointer;
+}
+
+
 
 #splash {
-	width: 580px;
-	margin: auto;
+    max-width: 747px;
+    margin: auto;
+}
+
+#content {
+    max-width: 900px;
+    margin: auto;
+}
+
+
+.key {
+    width: 460px;
+    height: 460px;
+    display: block;
+    margin-left: 13%;
+    margin-bottom: 5%;
 }
 
 i.material-icons {
-	font-size: 2.5em;
-	color: #EFEFEF;
-	position: absolute;
-	top: 9px;
-	right: 10px;
+    font-size: 2.5em;
+    color: #EFEFEF;
+    position: absolute;
+    top: 9px;
+    right: 10px;
 }
 
 .circle {
-	width: 66px;
-	height: 66px;
-	border-color: #EFEFEF;
-	border-style: solid;
-	border-width: 3px;
-	-webkit-border-radius: 37px;
-	-moz-border-radius: 37px;
-	border-radius: 37px;
-	position: relative;
+    width: 66px;
+    height: 66px;
+    border-color: #EFEFEF;
+    border-style: solid;
+    border-width: 3px;
+    -webkit-border-radius: 37px;
+    -moz-border-radius: 37px;
+    border-radius: 37px;
+    position: relative;
 }
 
 .inner-circle {
-	width: 60px;
-	height: 60px;
-	-webkit-border-radius: 35px;
-	-moz-border-radius: 35px;
-	border-radius: 35px;
-	background: #FF5356;
-	position: absolute;
-	top: 3px;
-	right: 3px;
+    width: 60px;
+    height: 60px;
+    -webkit-border-radius: 35px;
+    -moz-border-radius: 35px;
+    border-radius: 35px;
+    background: #FF5356;
+    position: absolute;
+    top: 3px;
+    right: 3px;
 }
 
 .nav {
-	display: flex;
-	justify-content: space-around;
-	padding-top: 20px;
+    display: flex;
+    justify-content: space-around;
+    padding-top: 20px;
 }
 
 .nav-button {
-	display: flex;
-	justify-content: center;
-	flex-direction: column;
-	align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+
 }
 
 .nav-button:hover .circle {
-	border-color:#7ad0e4;
+    border-color:#7ad0e4;
 }
 
 .label {
-	color: #6B6868;
-	text-transform: capitalize;
-	padding: 9px;
-	font-family: 'Fjalla One', sans-serif;
-	font-size: 26px;
+    color: #6B6868;
+    text-transform: capitalize;
+    padding: 9px;
+    font-family: 'Fjalla One', sans-serif;
+    font-size: 26px;
 }

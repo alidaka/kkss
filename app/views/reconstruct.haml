@@ -1,13 +1,13 @@
 %script{:type => "text/javascript", :src => "reconstructView.js"}
 
 %form{:id => "input-form"}
-  Keys:
+  Enter lock codes:
   %br/
   %input.partial-key{:type => "text", :name => "key0"}
   %br/
   %input.partial-key{:type => "text", :name => "key1"}
   %input{:type => "button", :name => "add-key-button", :value => "+"}
   %br/
-  %input{:type => "submit", :name => "reconstruct-button", :value => "Reconstruct!"}
+  %input{:type => "submit", :name => "reconstruct-button", :value => "Decode Secret"}
 
 #partial-keys

@@ -6,12 +6,12 @@ get '/' do
 end
 
 get '/generate' do
-  @title = 'generation';
+  @title = 'Generate Lock Codes';
   haml :generate
 end
 
 get '/reconstruct' do
-  @title = 'reconstruction';
+  @title = 'Decode The Secret';
   haml :reconstruct
 end
 
