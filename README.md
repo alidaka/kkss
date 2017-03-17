@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/seattle-beach/kkss.svg?branch=master)](https://travis-ci.org/seattle-beach/kkss)
 
-# KiKaSS: k-key secret sharing
+# [KiKaSS](http://kkss.cfapps.io/): k-key secret sharing
 
 ### Introduction
 KiKaSS is a secret encryption and deconstruction application. If you have a secret (password, encryption key, etc.), KKSS can decompose it into an arbitrary number of partial-keys, of which an arbitrary-sized subset is required to reconstruct the original key.
