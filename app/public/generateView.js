@@ -29,11 +29,26 @@
 
   KKSS.generateView.prototype.viewForKeys = function(keys) {
     var list = document.createElement("ul");
-    keys.forEach(function(key) {
-      var part = document.createElement("li");
-      part.innerText = key;
-      list.appendChild(part);
-    });
+    for (var i = 0; i < keys.length; i++) {
+      var key = keys[i];
+
+      var partContainer = document.createElement("li");
+      var part = document.createElement("input");
+      part.setAttribute("value", key);
+      part.setAttribute("disabled", true);
+      part.classList.add("partial-key");
+      partContainer.appendChild(part);
+
+      var copyButton = document.createElement("button");
+      copyButton.addEventListener("click", function() {
+        var keyInput = this.parentElement.querySelector("input");
+        keyInput.select();
+        document.execCommand("copy");
+      });
+      partContainer.appendChild(copyButton);
+
+      list.appendChild(partContainer);
+    }
 
     return list;
   };

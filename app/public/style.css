@@ -83,3 +83,10 @@ i.material-icons {
 	font-family: 'Fjalla One', sans-serif;
 	font-size: 26px;
 }
+
+.partial-key {
+	background-color: #EFEFEF;
+	border: none;
+	font-family: 'Fjalla One', sans-serif;
+
+}
