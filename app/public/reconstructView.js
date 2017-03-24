@@ -17,7 +17,7 @@
 
   KKSS.reconstructView.prototype.addKeyHandler = function(event) {
     var newKeyField = document.createElement("input");
-    newKeyField.setAttribute("class", "partial-key");
+    newKeyField.setAttribute("class", "partial-key input");
     newKeyField.setAttribute("type", "text");
 
     var partialKeyCount = this.input.querySelectorAll(".partial-key").length;
