@@ -1,15 +1,12 @@
 %script{:type => "text/javascript", :src => "generateView.js"}
 
 %form{:id => "input-form"}
-  Secret:
-  %input{:type => "text", :required => true, :name => "secret"}
+  %input{:type => "text", :required => true, :name => "secret", :placeholder => "Your Secret"}
   %br/
-  Partial keys to generate:
-  %input{:type => "number", :required => true, :min => "2", :name => "total-parts", :value => 3}
+  %input{:type => "number", :required => true, :min => "2", :name => "total-parts", :placeholder => "Total number of lock codes to generate"}
   %br/
-  Partial keys needed to reconstruct secret:
-  %input{:type => "number", :required => true, :min => "2", :name => "minimum-parts", :value => 2}
+  %input{:type => "number", :required => true, :min => "2", :name => "minimum-parts", :placeholder => "Minimum number of lock codes to require to unlock your secret"}
   %br/
-  %input{:type => "submit", :name => "generate-button", :value => "Generate Partial Keys!"}
+  %input{:type => "submit", :name => "generate-button", :value => "GENERATE LOCK CODES"}
 
 #partial-keys
