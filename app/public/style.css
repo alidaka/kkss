@@ -135,7 +135,7 @@ i.material-icons {
 }
 
 .nav-button:hover .circle {
-    border-color:#7ad0e4;
+    border-color: #7ad0e4;
 }
 
 .label {
@@ -150,4 +150,34 @@ i.material-icons {
     background-color: #EFEFEF;
     border: none;
     font-family: 'Fjalla One', sans-serif;
+    text-align: center;
+}
+
+.copyable {
+    font-family: 'monaco', monospace;
+    font-size: 16px;
+    margin: 3px;
+}
+
+.partial-key-list {
+    padding-left: 0px;
+    list-style-type: none;
+}
+
+.partial-key-item {
+    display: inline-block;
+    float: left;
+    clear: both;
+    border: 1px solid #000;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.copy-button {
+    height: 36px;
+    background: #FF5356;
+    margin: -1px;
+    border: 1px solid #000;
+    border-radius: 0 5px 5px 0;
+    color: #fff;
 }

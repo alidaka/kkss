@@ -29,17 +29,24 @@
 
   KKSS.generateView.prototype.viewForKeys = function(keys) {
     var list = document.createElement("ul");
+    list.classList.add("partial-key-list");
     for (var i = 0; i < keys.length; i++) {
       var key = keys[i];
 
       var partContainer = document.createElement("li");
+      partContainer.classList.add("partial-key-item");
       var part = document.createElement("input");
+      part.setAttribute("type", "text");
       part.setAttribute("value", key);
+      part.setAttribute("size", key.length);
       part.setAttribute("readonly", "readonly");
       part.classList.add("partial-key");
+      part.classList.add("copyable");
       partContainer.appendChild(part);
 
       var copyButton = document.createElement("button");
+      copyButton.classList.add("copy-button");
+      copyButton.innerText = "Copy key";
       copyButton.addEventListener("click", function() {
         var keyInput = this.parentElement.querySelector("input");
         keyInput.select();

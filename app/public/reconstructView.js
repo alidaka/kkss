@@ -17,7 +17,7 @@
 
   KKSS.reconstructView.prototype.addKeyHandler = function(event) {
     var newKeyField = document.createElement("input");
-    newKeyField.setAttribute("class", "partial-key input");
+    newKeyField.classList.add("input");
     newKeyField.setAttribute("type", "text");
 
     var partialKeyCount = this.input.querySelectorAll(".partial-key").length;
@@ -31,7 +31,7 @@
   KKSS.reconstructView.prototype.submitHandler = function(event) {
     event.preventDefault();
 
-    var partialKeys = this.input.querySelectorAll(".partial-key");
+    var partialKeys = this.input.querySelectorAll(".input");
     var keys = [];
     for (var i = 0; i < partialKeys.length; i++) {
       var text = partialKeys[i].value.trim();
