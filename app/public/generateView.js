@@ -35,7 +35,7 @@
       var partContainer = document.createElement("li");
       var part = document.createElement("input");
       part.setAttribute("value", key);
-      part.setAttribute("disabled", true);
+      part.setAttribute("readonly", "readonly");
       part.classList.add("partial-key");
       partContainer.appendChild(part);
 
