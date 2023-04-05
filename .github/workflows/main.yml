@@ -1,0 +1,13 @@
+name: Deploy to Heroku
+on: [push]
+jobs:
+  push-to-heroku:
+    runs-on: ubuntu-latest
+    env: 
+      HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - run: git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/kkss.lidaka.git
+      - run: git push --force heroku master
