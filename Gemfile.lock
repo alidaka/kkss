@@ -72,8 +72,11 @@ GEM
       ruby2_keywords (~> 0.0.1)
     net-http-persistent (2.9.4)
     net-http-pipeline (1.0.1)
+    nio4r (2.5.9)
     phantomjs (2.1.1.0)
     public_suffix (5.0.1)
+    puma (6.2.1)
+      nio4r (~> 2.0)
     pusher-client (0.6.2)
       json
       websocket (~> 1.0)
@@ -130,6 +133,7 @@ PLATFORMS
 DEPENDENCIES
   haml
   jasmine
+  puma
   rack-test
   rake
   rerun

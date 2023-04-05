@@ -4,6 +4,7 @@ ruby '3.2.2'
 gem 'sinatra'
 gem 'haml'
 gem 'rake'
+gem 'puma'
 
 group :development do
   gem 'rerun'
