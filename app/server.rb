@@ -6,17 +6,17 @@ get '/' do
 end
 
 get '/generate' do
-  @title = 'Generate Lock Codes';
+  @title = 'Generate Lock Codes'
   haml :generate
 end
 
 get '/reconstruct' do
-  @title = 'Decode The Secret';
+  @title = 'Decode The Secret'
   haml :reconstruct
 end
 
 get '/message' do
-  @title = 'encrypt message';
+  @title = 'encrypt message'
   haml :encryptMessage
 end
 
