@@ -10,6 +10,6 @@
       %h1{:onclick => "location.href='/';"}= "KiKaSS K-Key Secret Sharing"
       %h3="#{@title}"
 
-      = yield
+      != yield
 
     %script document.addEventListener('DOMContentLoaded', KKSS.boot(), false);
