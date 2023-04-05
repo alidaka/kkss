@@ -1,1 +1,1 @@
-web: rake run
+web: bundle exec rake run
